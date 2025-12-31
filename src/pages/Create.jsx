@@ -33,7 +33,7 @@ const {data,setdata} =useContext(recipecontext)
        
 
          <textarea className='border-b outline-0 p-2 block'
-         {...register("description")}  placeholder='Enter Description' >
+         {...register("desc")}  placeholder='Enter Description' >
         </textarea>
         
 
@@ -47,9 +47,9 @@ const {data,setdata} =useContext(recipecontext)
         </textarea>
 
          <select className='border-b outline-0 p-2 block' {...register("category")}   >
-            <option value="">Category-1</option>
-            <option value="">Category-2</option>
-            <option value="">Category-3</option>
+            <option value="braekfast">Braekfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
         </select>
       
 
