@@ -3,8 +3,11 @@ import React from 'react'
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form'
 import { recipecontext } from '../context/RecipeContext';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
+ const navigate= useNavigate()
 const {data,setdata} =useContext(recipecontext)
    const {register,handleSubmit,reset}=useForm();
 
@@ -16,7 +19,9 @@ const {data,setdata} =useContext(recipecontext)
     //  setdata(copydata)
 
     setdata([...data,recipe])
+    toast.success("New recipe created!")
      reset();
+     navigate("/recipes")
      
    }
   return (
