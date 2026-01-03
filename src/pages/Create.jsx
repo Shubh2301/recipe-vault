@@ -13,10 +13,10 @@ const {data,setdata} =useContext(recipecontext)
 
    const SubmitHandler=(recipe)=>{
     recipe.id=nanoid();
-
-    //  const copydata=[...data]
-    //  copydata.push(recipe)
-    //  setdata(copydata)
+     
+   const copydata=[...data]
+   setdata(copydata)
+   localStorage.setItem("recipes",JSON.stringify(copydata));
 
     setdata([...data,recipe])
     toast.success("New recipe created!")

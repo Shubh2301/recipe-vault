@@ -15,12 +15,12 @@ const SingleRecipes = () => {
 
     const { register, handleSubmit, reset } = useForm({
         defaultValues: {
-            title: recipe.title || "" ,
-            chef:recipe.chef,
-            image:recipe.image,
-            inst:recipe.inst,
-            desc:recipe.desc,
-            ingr:recipe.ingr
+            title: recipe?.title,
+            chef:recipe?.chef,
+            image:recipe?.image,
+            inst:recipe?.inst,
+            desc:recipe?.desc,
+            ingr:recipe?.ingr
         },
     });
 
@@ -29,18 +29,19 @@ const SingleRecipes = () => {
 
 
 
-    const SubmitHandler = (recipe) => {
+    const UpdateHandler = (recipe) => {
         const index = data.findIndex((recipe) => params.id == recipe.id);
         const copydata = [...data]
         copydata[index] = { ...copydata[index], ...recipe }
-        console.log(index);
         setdata(copydata);
+        localStorage.setItem("recipes",JSON.stringify(copydata));
         toast.success("Recipe updated!")
-
     }
+
     const DeleteHandler = () => {
         const filterdata = data.filter((recipe) => recipe.id != params.id);
         setdata(filterdata);
+           localStorage.setItem("recipes",JSON.stringify(filterdata));
         toast.success("Recipe deleted")
         navigate("/recipes")
     }
@@ -57,12 +58,13 @@ const SingleRecipes = () => {
         recipe ? <div className='w-full flex'>
             <div className='left w-1/2 p-2'>
                 <h1 className='text-4xl font-black'>{recipe.title}</h1>
-                <img className='h-[40vh]' src={recipe.image} alt={recipe.title} />
+                {/* <img className='h-[40vh]' src={recipe.image || null} alt={recipe.title} /> */}
+                {recipe.image ? ( <img src={recipe.image} alt={recipe.title} /> ) : null}
                 <h1>{recipe.chef}</h1>
                 <p>{recipe.desc}</p>
             </div>
 
-            <form className='w-1/2 p-2' onSubmit={handleSubmit(SubmitHandler)}>
+            <form className='w-1/2 p-2' onSubmit={handleSubmit(UpdateHandler)}>
 
                 <input className='border-b outline-0 p-2 block'
                     {...register("image")} type="url" placeholder='Image url' />
